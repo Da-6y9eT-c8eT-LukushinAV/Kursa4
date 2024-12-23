@@ -1,0 +1,36 @@
+﻿@page
+@model HotelBooking.Pages.AccountModel
+@{
+    ViewData["Title"] = "Личный кабинет";
+}
+
+<h2>Личный кабинет</h2>
+
+@if (Model.UserBookings != null && Model.UserBookings.Count > 0)
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Дата заезда</th>
+                <th>Дата выезда</th>
+                <th>Стоимость</th>
+                <th>Номер</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in Model.UserBookings)
+            {
+                <tr>
+                    <td>@booking.CheckInDate.ToShortDateString()</td>
+                    <td>@booking.CheckOutDate.ToShortDateString()</td>
+                    <td>@booking.TotalPrice.ToString("C")</td>
+                    <td>@booking.Room.RoomId</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>У вас пока нет бронирований.</p>
+}

@@ -1,0 +1,78 @@
+﻿@page
+@model ManageRoomsModel
+@* @section Styles {
+    <style>
+        /* Стиль для добавления отступа вниз */
+        .table{
+            margin-bottom: 200px; /* Отступ снизу после формы карты */
+        }
+    </style>
+} *@
+<div class="container w-100 px-0">
+
+<h2>Управление Номерами</h2>
+
+<form method="post">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>RoomId</th>
+                <th>HotelId</th>
+                <th>Тип номера</th>
+                <th>Вместимость</th>
+                <th>Цена за ночь</th>
+                <th>Файл изображения</th>
+                <th>Wi-Fi</th>
+                <th>Кондиционер</th>
+                <th>Сейф</th>
+                <th>Телевизор</th>
+                <th>Фен</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Rooms.Count; i++)
+            {
+                <tr>
+                    <td>@Model.Rooms[i].RoomId</td>
+                    <td><input type="number" asp-for="Rooms[i].HotelId" class="form-control" /></td>
+                    <td><input type="text" asp-for="Rooms[i].RoomType" class="form-control" style="width: auto" /></td>
+                    <td><input type="number" asp-for="Rooms[i].Capacity" class="form-control" /></td>
+                    <td><input type="number" asp-for="Rooms[i].PricePerNight" class="form-control" step="0.01" style="width: auto;" /></td>
+                    <td><input type="text" asp-for="Rooms[i].ImageFileName" class="form-control" /></td>
+                    
+                    <td><input type="number" asp-for="Rooms[i].HasWifi" class="form-control" style="width: 50px;" /></td>
+                 
+                    <td><input type="number" asp-for="Rooms[i].HasAirConditioner" class="form-control" style="width: 50px;" /></td>
+                    <td><input type="number" asp-for="Rooms[i].HasSafe" class="form-control" style="width:50px ;" /></td>
+                    <td><input type="number" asp-for="Rooms[i].HasTV" class="form-control" style="width: 50px;" /></td>
+                    <td><input type="number" asp-for="Rooms[i].HasHairDryer" class="form-control" style="width: 50px;" /></td>
+                    <td>
+                        <button type="submit" asp-page-handler="Delete" asp-route-id="@Model.Rooms[i].RoomId" class="btn btn-danger">Удалить</button>
+                    </td>
+                </tr>
+            }
+            
+            <!-- Добавление новой записи -->
+            
+        </tbody>
+        <tr>
+            <td>Новый</td>
+            <td><input type="number" name="NewRoom.HotelId" class="form-control" /></td>
+            <td><input type="text" name="NewRoom.RoomType" class="form-control" /></td>
+            <td><input type="number" name="NewRoom.Capacity" class="form-control" /></td>
+            <td><input type="number" name="NewRoom.PricePerNight" class="form-control" step="0.01" /></td>
+            <td><input type="text" name="NewRoom.ImageFileName" class="form-control" /></td>
+            <td><input type="checkbox" name="NewRoom.HasWifi"  value="1" /></td>
+            <td><input type="checkbox" name="NewRoom.HasAirConditioner" value="1" /></td>
+            <td><input type="checkbox" name="NewRoom.HasSafe" value="1" /></td>
+            <td><input type="checkbox" name="NewRoom.HasTV" value="1" /></td>
+            <td><input type="checkbox" name="NewRoom.HasHairDryer" value="1" /></td>
+            <td>
+                <button type="submit" asp-page-handler="Add" class="btn btn-success">Добавить</button>
+            </td>
+        </tr>
+    </table>
+</form>
+
+    </div>

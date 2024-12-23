@@ -1,0 +1,31 @@
+﻿@page
+@model HotelBooking.Pages.LoginModel
+@{
+    ViewData["Title"] = "Вход";
+}
+
+<h2>Вход</h2>
+
+<form method="post">
+    <div class="form-group">
+        @* Поле для логина *@
+        <input asp-for="Input.UserName" class="form-control" placeholder="UserLogin" required />
+    </div>
+    <div class="form-group">
+        @* Поле для пароля *@
+        <input asp-for="Input.Password" type="password" class="form-control" placeholder="Password" required />
+    </div>
+
+    <button type="submit" class="btn btn-info mt-2">Войти</button>
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div style="color:red;">@Model.ErrorMessage</div>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="text-danger">
+            <span>Неправильный логин или пароль.</span>
+        </div>
+    }
+</form>

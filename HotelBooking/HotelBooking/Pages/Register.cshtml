@@ -1,0 +1,29 @@
+﻿@page
+@model RegisterModel
+
+<h2>Регистрация</h2>
+
+
+<form method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label for="Input_UserName">Имя Пользователя</label>
+        <input type="text" class="form-control" id="Input_UserName" name="Input.UserName" required />
+    </div>
+    <div class="form-group">
+        <label for="Input_Email">Электронная почта</label>
+        <input type="email" class="form-control" id="Input_Email" name="Input.Email" required />
+    </div>
+    <div class="form-group">
+        <label for="Input_Password">Пароль</label>
+        <input type="password" class="form-control" id="Input_Password" name="Input.Password" required />
+    </div>
+    <div class="form-group">
+        <label for="Input_ConfirmPassword">Подтвердите пароль</label>
+        <input type="password" class="form-control" id="Input_ConfirmPassword" name="Input.ConfirmPassword" required />
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-info mt-2">Зарегистрироваться</button>
+    </div>
+</form>

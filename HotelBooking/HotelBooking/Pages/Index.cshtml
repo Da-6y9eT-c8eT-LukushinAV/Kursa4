@@ -1,0 +1,131 @@
+﻿@page
+@model IndexModel
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HotelBooking</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- Подключение FontAwesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Подключение jQuery (вы уже добавили) -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Подключение Bootstrap CSS и JS (для карусели) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <main role="main" class="pb-3">
+            <!-- Unified Filters Section -->
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <h2>Поиск номеров</h2>
+                    <form method="get" asp-page="/Index">
+                        
+            <div class="row">
+                <!-- City and Dates -->
+                <div class="col-md-3">
+                    <label for="city">Город</label>
+                    <input type="text" id="city" name="City" class="form-control" placeholder="Введите город" value="@Model.City" />
+                </div>
+                <div class="col-md-3">
+                    <label for="arrivalDate">Дата прибытия</label>
+                    <input type="date" id="arrivalDate" name="ArrivalDate" class="form-control" value="@Model.ArrivalDate?.ToString("yyyy-MM-dd")" />
+                </div>
+                <div class="col-md-3">
+                    <label for="departureDate">Дата выезда</label>
+                    <input type="date" id="departureDate" name="DepartureDate" class="form-control" value="@Model.DepartureDate?.ToString("yyyy-MM-dd")" />
+                </div>
+                <div class="col-md-3">
+                    <label for="guests">Гости</label>
+                    <div class="input-group">
+                        <input type="number" id="adults" name="Adults" class="form-control" placeholder="Взрослые" value="@Model.Adults" />
+                        <input type="number" id="children" name="Children" class="form-control" placeholder="Дети" value="@Model.Children" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <!-- Additional Filters -->
+                <div class="col-md-3">
+                    <label for="priceSort">Сортировка по цене</label>
+                    <select id="priceSort" name="sortOrder" class="form-control">
+                        <option value="asc" selected="@(ViewData["sortOrder"]?.ToString() == "asc")">По возрастанию</option>
+                        <option value="desc" selected="@(ViewData["sortOrder"]?.ToString() == "desc")">По убыванию</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="stars">Количество звезд</label>
+                    <select id="stars" name="starRating" class="form-control">
+                        <option value="" selected="@(ViewData["starRating"] == null)">Выберите</option>
+                        <option value="1" selected="@(ViewData["starRating"]?.ToString() == "1")">1 звезда</option>
+                        <option value="2" selected="@(ViewData["starRating"]?.ToString() == "2")">2 звезды</option>
+                        <option value="3" selected="@(ViewData["starRating"]?.ToString() == "3")">3 звезды</option>
+                        <option value="4" selected="@(ViewData["starRating"]?.ToString() == "4")">4 звезды</option>
+                        <option value="5" selected="@(ViewData["starRating"]?.ToString() == "5")">5 звезд</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Удобства</label><br />
+                    <input type="checkbox" name="hasWifi" value="1" @(Model.hasWifi == 1 ? "checked" : "") /> Wi-Fi
+                    <input type="checkbox" name="hasAirConditioner" value="1" @(Model.hasAirConditioner == 1 ? "checked" : "") /> AC
+                    <input type="checkbox" name="hasSafe" value="1" @(Model.hasSafe == 1 ? "checked" : "") /> Safe
+                    <input type="checkbox" name="hasTV" value="1" @(Model.hasTV == 1 ? "checked" : "") /> TV
+                    <input type="checkbox" name="hasHairDryer" value="1" @(Model.hasHairDryer == 1 ? "checked" : "") /> Hair Dryer
+                </div>
+            </div>
+
+                        <button type="submit" class="btn btn-info mt-2">Применить фильтры</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Room Listings -->
+            <div class="row">
+                @foreach (var room in Model.FilteredRooms)
+                {
+                    <div class="col-md-4 mb-4">
+                        <a asp-page="/Booking"
+                           asp-route-roomId="@room.RoomId"
+                           asp-route-city="@Model.City"
+                           asp-route-arrivalDate="@Model.ArrivalDate?.ToString("yyyy-MM-dd")"
+                           asp-route-departureDate="@Model.DepartureDate?.ToString("yyyy-MM-dd")"
+                           asp-route-adults="@Model.Adults"
+                           asp-route-children="@Model.Children"
+                           asp-route-hasWifi="@Model.hasWifi"
+                           asp-route-hasAirConditioner="@Model.hasAirConditioner"
+                           asp-route-hasSafe="@Model.hasSafe"
+                           asp-route-hasTV="@Model.hasTV"
+                           asp-route-hasHairDryer="@Model.hasHairDryer"
+                           class="text-decoration-none text-dark">
+                           
+
+                        <div class="card">
+                            <img src="~/images/@room.ImageFileName" class="card-img-top" alt="@room.RoomType" />
+                            <div class="card-body">
+                                <h5 class="card-title">@room.RoomType</h5>
+                                <p class="card-text">
+                                    Цена за ночь: @room.PricePerNight руб.<br />
+                                    Вместимость: @room.Capacity человек<br />
+                                    Отель: @room.Hotel.Name
+                                </p>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </main>
+    </div>
+    
+   
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

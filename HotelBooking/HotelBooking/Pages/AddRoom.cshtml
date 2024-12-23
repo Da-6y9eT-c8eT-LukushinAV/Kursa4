@@ -1,0 +1,53 @@
+﻿@page
+@model HotelBooking.Pages.Admin.AddRoomModel
+@{
+    ViewData["Title"] = "Добавить номер";
+}
+
+<h2>Добавить новый номер</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label for="RoomType">Тип номера</label>
+        <input asp-for="NewRoom.RoomType" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="Capacity">Вместимость</label>
+        <input asp-for="NewRoom.Capacity" type="number" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="PricePerNight">Цена за ночь</label>
+        <input asp-for="NewRoom.PricePerNight" type="number" step="0.01" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="ImageFileName">Имя файла изображения</label>
+        <input asp-for="NewRoom.ImageFileName" class="form-control" />
+    </div>
+
+    <h4>Удобства</h4>
+    <div class="form-check">
+        <input asp-for="NewRoom.HasWifi" class="form-check-input" />
+        <label class="form-check-label" for="HasWifi">WiFi</label>
+    </div>
+    <div class="form-check">
+        <input asp-for="NewRoom.HasAirConditioner" class="form-check-input" />
+        <label class="form-check-label" for="HasAirConditioner">Кондиционер</label>
+    </div>
+    <div class="form-check">
+        <input asp-for="NewRoom.HasSafe" class="form-check-input" />
+        <label class="form-check-label" for="HasSafe">Сейф</label>
+    </div>
+    <div class="form-check">
+        <input asp-for="NewRoom.HasTV" class="form-check-input" />
+        <label class="form-check-label" for="HasTV">Телевизор</label>
+    </div>
+    <div class="form-check">
+        <input asp-for="NewRoom.HasHairDryer" class="form-check-input" />
+        <label class="form-check-label" for="HasHairDryer">Фен</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Добавить</button>
+</form>

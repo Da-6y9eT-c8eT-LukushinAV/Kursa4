@@ -1,0 +1,146 @@
+﻿
+@page
+@model BookingModel
+@{
+    ViewData["Title"] = "Бронирование номера";
+}
+@section Styles {
+    <style>
+        /* Стиль для добавления отступа вниз */
+        .card {
+            margin-bottom: 60px; /* Отступ снизу после формы карты */
+        }
+    </style>
+}
+
+<div class="container mt-4">
+    <h2>Бронирование номера</h2>
+
+    <!-- Фото номера -->
+    @if (!string.IsNullOrEmpty(Model.SelectedRoom?.ImageFileName))
+    {
+        <img src="~/Images/@Model.SelectedRoom.ImageFileName" class="img-fluid mb-3" alt="Фото номера" style="max-width:400px;">
+    }
+
+    <form method="post">
+        <input type="hidden" asp-for="RoomId" value="@Model.SelectedRoom?.RoomId" />
+
+        <!-- Информация о номере -->
+        <div>
+            <h4>@Model.SelectedRoom?.RoomType</h4>
+            <p>Цена за ночь: <strong>@Model.SelectedRoom?.PricePerNight руб.</strong></p>
+        </div>
+
+        <!-- Поля для ввода дат -->
+        <div class="form-group">
+            <label for="arrivalDate">Дата заезда</label>
+            <input type="date" asp-for="ArrivalDate" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label for="departureDate">Дата выезда</label>
+            <input type="date" asp-for="DepartureDate" class="form-control" />
+        </div>
+
+        <!-- Кнопка для расчёта стоимости -->
+        <button formaction="?handler=Calculate" formmethod="post" class="btn btn-info mt-2">
+            Рассчитать стоимость
+        </button>
+
+
+        @if (Model.PriceCalculated)
+        {
+            <div class="alert alert-success mt-3">
+                <p>Общая стоимость: <strong>@Model.TotalPrice руб.</strong></p>
+            </div>
+            <!-- Кнопка для бронирования -->
+            <button formaction="?handler=Book" formmethod="post" class="btn btn-info mt-2">
+                Забронировать
+            </button>
+        }
+
+        <!-- Сообщения об ошибках -->
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="alert alert-danger mt-3">
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <p>@error.ErrorMessage</p>
+                }
+            </div>
+        }
+    </form>
+</div>
+
+
+<hr />
+
+<!-- Декоративная форма для демонстрации интерфейса -->
+<section>
+    <div class="card">
+        <div class="card-header">
+            
+        </div>
+        <div class="card-body">
+            <!-- Отдельная форма без функционала -->
+            <form onsubmit="return false;" autocomplete="off">
+                <div class="row mb-3">
+                    <div class="col">
+                        <label for="decorativeName">Имя</label>
+                        <input type="text" class="form-control" id="decorativeName" placeholder="Введите имя" />
+                    </div>
+                    <div class="col">
+                        <label for="decorativeSurname">Фамилия</label>
+                        <input type="text" class="form-control" id="decorativeSurname" placeholder="Введите фамилию" />
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="decorativeEmail">Email</label>
+                    <input type="email" class="form-control" id="decorativeEmail" placeholder="Введите email" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="decorativePhone">Телефон</label>
+                    <input type="tel" class="form-control" id="decorativePhone" placeholder="Введите телефон" />
+                </div>
+
+                <h6>Способ оплаты</h6>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="cardPayment" checked />
+                    <label class="form-check-label" for="cardPayment">Банковская карта</label>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="radio" name="paymentMethod" id="sbpPayment" />
+                    <label class="form-check-label" for="sbpPayment">СБП</label>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        <label for="cardHolder">Владелец карты</label>
+                        <input type="text" class="form-control" id="cardHolder" placeholder="SURENAME NAME" />
+                    </div>
+                    <div class="col-6">
+                        <label for="cardNumber">Номер карты</label>
+                        <input type="text" class="form-control" id="cardNumber" placeholder="**** **** **** ****" />
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-3">
+                        <label for="cardExpiration">Срок действия</label>
+                        <input type="text" class="form-control" id="cardExpiration" placeholder="ММ/ГГ" />
+                    </div>
+                    <div class="col-3">
+                        <label for="cardCVV"></label>
+                        <input type="text" class="form-control" id="cardCVV" placeholder="CVV" />
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+

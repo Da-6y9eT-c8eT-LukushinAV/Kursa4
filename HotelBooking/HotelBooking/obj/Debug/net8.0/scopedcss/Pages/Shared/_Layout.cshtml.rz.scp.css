@@ -1,0 +1,95 @@
+/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand[b-zeq8q9nfzq] {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a[b-zeq8q9nfzq] {
+  color: #0077cc;
+}
+.highlight[b-zeq8q9nfzq] {
+    color: #17a2b8; /* Цвет для букв H и B */
+    font-weight: bold; /* Дополнительно можно сделать жирным */
+}
+
+/*.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}*/
+
+.nav-pills .nav-link.active[b-zeq8q9nfzq], .nav-pills .show > .nav-link[b-zeq8q9nfzq] {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.border-top[b-zeq8q9nfzq] {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom[b-zeq8q9nfzq] {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow[b-zeq8q9nfzq] {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy[b-zeq8q9nfzq] {
+  font-size: 1rem;
+  line-height: inherit;
+}
+body[b-zeq8q9nfzq] {
+    background-color: rgb(30, 15, 33);
+    margin: 0;
+    margin-bottom: 60px;
+    padding: 0;
+}
+/* Темная тема с использованием медиа-запросов */
+@media (prefers-color-scheme: dark) {
+    body[b-zeq8q9nfzq] {
+        background-color: #121212;
+        color: white;
+    }
+
+    a[b-zeq8q9nfzq] {
+        color: #80d0ff;
+    }
+
+    /* Добавьте дополнительные стили для темной темы */
+}
+
+#client-testimonial-carousel[b-zeq8q9nfzq] {
+    min-height: 200px;
+}
+
+.footer[b-zeq8q9nfzq] {
+    height: 0px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+}
+
+
+.btn-custom[b-zeq8q9nfzq] {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #ffffff !important; /* Принудительно белый текст */
+    background-color: #007bff !important; /* Принудительно синий фон */
+    border: 2px solid #007bff !important; /* Принудительная рамка */
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .btn-custom:hover[b-zeq8q9nfzq] {
+        background-color: #0056b3 !important;
+        border-color: #0056b3 !important;
+        color: #ffffff !important;
+    }

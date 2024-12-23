@@ -1,0 +1,119 @@
+﻿@* @page
+@model HotelBooking.Pages.Admin.ManageHotelsModel
+@{
+    ViewData["Title"] = "Управление отелями";
+}
+
+<h2>Управление отелями</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Местоположение</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hotel in Model.Hotels)
+        {
+            <tr>
+                <form method="post" asp-page-handler="Edit">
+                    <input type="hidden" name="id" value="@hotel.HotelId" />
+                <td>@hotel.HotelId</td>
+                <td><input type="text" name="name" value="@hotel.Name" class="form-control" /></td>
+                <td><input type="text" name="location" value="@hotel.Address" class="form-control" /></td>
+                <td>
+                    <button type="submit" class="btn btn-sm btn-success">Сохранить</button>
+                    <form method="post" asp-page-handler="Delete" style="display:inline;">
+                        <input type="hidden" name="id" value="@hotel.HotelId" />
+                        <button type="submit" class="btn btn-sm btn-danger">Удалить</button>
+                    </form>
+                </td>
+                </form>
+            </tr>
+        }
+        <!-- Добавление новой записи -->
+        <tr>
+            <form method="post" asp-page-handler="Add">
+            <td></td>
+            <td><input asp-for="NewHotel.Name" class="form-control" placeholder="Название отеля" required /></td>
+            <td><input asp-for="NewHotel.Address" class="form-control" placeholder="Местоположение" required /></td>
+            <td>
+                <button type="submit" class="btn btn-sm btn-primary">Добавить</button>
+            </td>
+            </form>
+        </tr>
+    </tbody>
+</table> *@
+
+@page
+@model HotelBooking.Pages.Admin.ManageHotelsModel
+@{
+    ViewData["Title"] = "Manage Hotels";
+}
+@section Styles {
+    <style>
+        /* Стиль для добавления отступа вниз */
+        .table table-striped {
+            margin-bottom: 200px; /* Отступ снизу после формы карты */
+        }
+    </style>
+}
+
+<h1>Управление отелями</h1>
+
+<!-- Форма для добавления нового отеля -->
+<h3>Добавить новый отель</h3>
+<form method="post" asp-page-handler="Add">
+    <div class="form-group">
+        <label asp-for="NewHotel.Name">Название отеля</label>
+        <input asp-for="NewHotel.Name" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label asp-for="NewHotel.Address">Адрес</label>
+        <input asp-for="NewHotel.Address" class="form-control" required />
+    </div>
+    <button type="submit" class="btn btn-info mt-2">Добавить</button>
+</form>
+
+<hr />
+
+<!-- Таблица для отображения и редактирования отелей -->
+<h3>Список отелей</h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Адрес</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hotel in Model.Hotels)
+        {
+            <tr>
+                <td>@hotel.HotelId</td>
+                <td>
+                    <form method="post" asp-page-handler="Edit">
+                        <input type="hidden" name="id" value="@hotel.HotelId" />
+                        <input type="text" name="name" value="@hotel.Name" class="form-control" />
+                    </form>
+                </td>
+                <td>
+                        <input type="text" name="location" value="@hotel.Address" class="form-control" />
+                </td>
+                <td>
+                        <button type="submit" class="btn btn-warning btn-sm">Сохранить</button>
+                    
+                    <form method="post" asp-page-handler="Delete" style="display: inline;">
+                        <input type="hidden" name="id" value="@hotel.HotelId" />
+                        <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
